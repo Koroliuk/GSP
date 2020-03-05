@@ -160,7 +160,6 @@ public class Main extends Application {
                 return edge;
             }
         } else {
-            System.out.println(2);
             double controlX, controlY, otX, otY, kuX, kuY, kOt, bOt, kKu, bKu;
             double[] controlXY = (ot.isHaveDoubleEdge.equals("No"))?findControlXY(ot, ku):findControlXYoriented(ot, ku);
             controlX = controlXY[0];
@@ -171,7 +170,6 @@ public class Main extends Application {
                 controlX = ot.newControlX;
                 controlY = ot.newConrtolY;
             }
-            System.out.println(controlX+" "+controlY);
             double[] eqaulOflineOt = equalationOfLine(ot.circle.getCenterX(), ot.circle.getCenterY(), controlX, controlY);
             kOt = eqaulOflineOt[0];
             bOt = eqaulOflineOt[1];
@@ -193,7 +191,6 @@ public class Main extends Application {
                     double midY = (ot.circle.getCenterY()+ku.circle.getCenterY())/2d;
                     ku.newControlX = 2*midX - controlX;
                     ku.newConrtolY = 2*midY - controlY;
-                    System.out.println(midX+" "+midX+" "+ku.newControlX+" "+ku.newConrtolY);
 
                 }
                 return new ArrowArc(otX, otY, controlX, controlY, kuX, kuY);
