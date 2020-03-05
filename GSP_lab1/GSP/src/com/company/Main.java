@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.stage.Stage;
@@ -166,7 +165,6 @@ public class Main extends Application {
             controlY = controlXY[1];
 
             if (ot.isHaveDoubleEdge.equals("Inheriter")) {
-                System.out.println(3);
                 controlX = ot.newControlX;
                 controlY = ot.newConrtolY;
             }
@@ -186,7 +184,6 @@ public class Main extends Application {
             kuY = kuXkuY[1];
             if (flag) {
                 if (ot.isHaveDoubleEdge.equals("Creater")) {
-                    System.out.println(4);
                     double midX = (ot.circle.getCenterX()+ku.circle.getCenterX())/2d;
                     double midY = (ot.circle.getCenterY()+ku.circle.getCenterY())/2d;
                     ku.newControlX = 2*midX - controlX;
