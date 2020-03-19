@@ -15,7 +15,7 @@ public class CalculateMath {
         int[][] ans = new int[n][2];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                ans[i][0]-=matrix[i][j];//out
+                ans[i][0]+=matrix[i][j];//out
                 ans[j][1]+=matrix[i][j];//in
             }
         }
