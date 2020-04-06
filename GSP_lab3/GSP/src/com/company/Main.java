@@ -107,8 +107,9 @@ public class Main extends Application {
 
         infoButton.setOnAction(actionEvent -> {
             int[][] listOfDegreesOfGraph = CalculateMath.degreesOfNodesOr(numberOfNodes, matrix);
-            int[][] matrix2 = CalculateMath.nTimesComposition(numberOfNodes, matrix, 2);
-            int[][] matrix3 = CalculateMath.nTimesComposition(numberOfNodes, matrix, 3);
+            ArrayList<ArrayList<ArrayList<Integer>>> listWays23 = CalculateMath.waysLength23(numberOfNodes, matrix);
+            ArrayList<ArrayList<Integer>> listWays2 = listWays23.get(0);
+            ArrayList<ArrayList<Integer>> listWays3 = listWays23.get(1);
             int[][] closure = CalculateMath.TRClosure(numberOfNodes, matrix);
             int[][] components = CalculateMath.getMatrixOfComponents(numberOfNodes, closure);
             listOfComponents = CalculateMath.getListOfComponents(numberOfNodes, components);
@@ -118,28 +119,28 @@ public class Main extends Application {
             VBox vBoxL = new VBox();
 
             Label labelDegrees = new Label("Півстепені вузлів:");
-            labelDegrees.setFont(new Font(15));
+            labelDegrees.setFont(new Font(13));
             vBoxL.getChildren().add(labelDegrees);
 
             HBox hBoxDegrees = new HBox();
             VBox vBoxDegreesOut = new VBox();
             Label labelDegreeOut = new Label(" Напівстепені\n  заходу");
-            labelDegreeOut.setFont(new Font(14));
+            labelDegreeOut.setFont(new Font(13));
             vBoxDegreesOut.getChildren().add(labelDegreeOut);
             for (int i = 0; i < numberOfNodes; i++) {
                 Label labelOfDegreeOfNodeOr = new Label("    В.№"+(i+1)+": "+listOfDegreesOfGraph[i][1]);
-                labelOfDegreeOfNodeOr.setFont(new Font(14));
+                labelOfDegreeOfNodeOr.setFont(new Font(12));
                 vBoxDegreesOut.getChildren().add(labelOfDegreeOfNodeOr);
             }
             hBoxDegrees.getChildren().add(vBoxDegreesOut);
 
             VBox vBoxDegreesIn = new VBox();
             Label labelDegreeIn = new Label("  Напівстепені\n  виходу");
-            labelDegreeIn.setFont(new Font(14));
+            labelDegreeIn.setFont(new Font(13));
             vBoxDegreesIn.getChildren().add(labelDegreeIn);
             for (int i = 0; i < numberOfNodes; i++) {
                 Label labelOfDegreeOfNodeOr = new Label("    В.№"+(i+1)+": "+listOfDegreesOfGraph[i][0]);
-                labelOfDegreeOfNodeOr.setFont(new Font(14));
+                labelOfDegreeOfNodeOr.setFont(new Font(12));
                 vBoxDegreesIn.getChildren().add(labelOfDegreeOfNodeOr);
             }
             hBoxDegrees.getChildren().add(vBoxDegreesIn);
@@ -147,7 +148,7 @@ public class Main extends Application {
 
             VBox vBoxOfMatrixConnectivity = new VBox();
             Label labelTextOfMatrixConnectivity = new Label("Матриця зв'язності:");
-            labelTextOfMatrixConnectivity.setFont(new Font(15));
+            labelTextOfMatrixConnectivity.setFont(new Font(13));
             vBoxOfMatrixConnectivity.getChildren().add(labelTextOfMatrixConnectivity);
             for (int i = 0; i < numberOfNodes; i++) {
                 StringBuilder line = new StringBuilder();
@@ -156,7 +157,7 @@ public class Main extends Application {
                     line.append(" ").append(components[i][j]);
                 }
                 Label labelLine = new Label(String.valueOf(line));
-                labelLine.setFont(new Font(14));
+                labelLine.setFont(new Font(12));
                 vBoxOfMatrixConnectivity.getChildren().add(labelLine);
             }
             vBoxL.getChildren().add(vBoxOfMatrixConnectivity);
@@ -169,46 +170,14 @@ public class Main extends Application {
                     line.append(" ").append(listOfComponents.get(i).get(j));
                 }
                 Label labelLine = new Label(String.valueOf(line));
-                labelLine.setFont(new Font(14));
+                labelLine.setFont(new Font(13));
                 vBoxComponents.getChildren().add(labelLine);
             }
             vBoxL.getChildren().add(vBoxComponents);
 
-            VBox vBoxR = new VBox();
-
-            VBox vBoxMatrix2 = new VBox();
-            Label labelMatrix2 = new Label("Матриця шляху довжини 2:");
-            labelMatrix2.setFont(new Font(14));
-            vBoxMatrix2.getChildren().add(labelMatrix2);
-            for (int i = 0; i < numberOfNodes; i++) {
-                StringBuilder line = new StringBuilder("   ");
-                for (int j = 0; j < numberOfNodes; j++) {
-                    line.append(" ").append(matrix2[i][j]);
-                }
-                Label labelLine = new Label(String.valueOf(line));
-                labelLine.setFont(new Font(14));
-                vBoxMatrix2.getChildren().add(labelLine);
-            }
-            vBoxR.getChildren().add(vBoxMatrix2);
-
-            VBox vBoxMatrix3 = new VBox();
-            Label labelMatrix3 = new Label("Матриця шляху довжини 3:");
-            labelMatrix3.setFont(new Font(14));
-            vBoxMatrix3.getChildren().add(labelMatrix3);
-            for (int i = 0; i < numberOfNodes; i++) {
-                StringBuilder line = new StringBuilder("   ");
-                for (int j = 0; j < numberOfNodes; j++) {
-                    line.append(" ").append(matrix3[i][j]);
-                }
-                Label labelLine = new Label(String.valueOf(line));
-                labelLine.setFont(new Font(14));
-                vBoxMatrix3.getChildren().add(labelLine);
-            }
-            vBoxR.getChildren().add(vBoxMatrix3);
-
             VBox vBoxMatrixClosure = new VBox();
             Label labelMatrixClosure = new Label("Матриця досяжності:");
-            labelMatrixClosure.setFont(new Font(14));
+            labelMatrixClosure.setFont(new Font(13));
             vBoxMatrixClosure.getChildren().add(labelMatrixClosure);
             for (int i = 0; i < numberOfNodes; i++) {
                 StringBuilder line = new StringBuilder("   ");
@@ -216,15 +185,58 @@ public class Main extends Application {
                     line.append(" ").append(closure[i][j]);
                 }
                 Label labelLine = new Label(String.valueOf(line));
-                labelLine.setFont(new Font(14));
+                labelLine.setFont(new Font(12));
                 vBoxMatrixClosure.getChildren().add(labelLine);
             }
-            vBoxR.getChildren().add(vBoxMatrixClosure);
+            vBoxL.getChildren().add(vBoxMatrixClosure);
+
+            VBox vBoxR = new VBox();
+
+            HBox hBoxWays = new HBox();
+            VBox vBoxWays2 = new VBox();
+            Label labelWays2 = new Label("Шляхи\nдовжини 2:");
+            labelWays2.setFont(new Font(13));
+            vBoxWays2.getChildren().add(labelWays2);
+            for (ArrayList<Integer> integers : listWays2) {
+                StringBuilder line = new StringBuilder("   ");
+                for (int j = 0; j < 3; j++) {
+                    if (j == 2) {
+                        line.append(integers.get(j));
+                    } else {
+                        line.append(integers.get(j)).append("-");
+                    }
+                }
+                Label labelLine = new Label(String.valueOf(line));
+                labelLine.setFont(new Font(12));
+                vBoxWays2.getChildren().add(labelLine);
+            }
+            hBoxWays.getChildren().add(vBoxWays2);
+
+            VBox vBoxWays3 = new VBox();
+            Label labelWays3 = new Label("Шляхи\nдовжини 3:");
+            labelWays3.setFont(new Font(13));
+            vBoxWays3.getChildren().add(labelWays3);
+            for (ArrayList<Integer> integers : listWays3) {
+                StringBuilder line = new StringBuilder("   ");
+                for (int j = 0; j < 4; j++) {
+                    if (j == 3) {
+                        line.append(integers.get(j));
+                    } else {
+                        line.append(integers.get(j)).append("-");
+                    }
+                }
+                Label labelLine = new Label(String.valueOf(line));
+                labelLine.setFont(new Font(12));
+                vBoxWays3.getChildren().add(labelLine);
+            }
+            hBoxWays.getChildren().add(vBoxWays3);
+            hBoxWays.setSpacing(10);
+            vBoxR.getChildren().add(hBoxWays);
 
             hBoxAll.getChildren().addAll(vBoxL, vBoxR);
             hBoxAll.setSpacing(70);
             hBoxAll.setLayoutX(1330);
-            hBoxAll.setLayoutY(300);
+            hBoxAll.setLayoutY(280);
             root.getChildren().add(hBoxAll);
         });
 
