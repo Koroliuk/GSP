@@ -14,17 +14,37 @@ public class CalculateMath {
         return ans;
     }
 
-    public static int setGraphRegularOr(int n, int[][] matrix) {
-        int ans = Math.abs(matrix[0][0]);
-        int someDegree = Math.abs(matrix[0][0]);
+    public static ArrayList<ArrayList<ArrayList<Integer>>> waysLength23(int n, int[][] matrix) {
+        ArrayList<ArrayList<Integer>> ans2 = new ArrayList<>();
+        ArrayList<ArrayList<Integer>> ans3 = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            for (int j = 0; j < 2; j++) {
-                if (Math.abs(matrix[i][j]) != someDegree) {
-                    ans = -1;
-                    break;
+            for (int j = 0; j < n; j++) {
+                if (matrix[i][j] == 1) {
+                    for (int k = 0; k < n; k++) {
+                        if (matrix[j][k] == 1) {
+                            ArrayList<Integer> ans2_i = new ArrayList<>();
+                            ans2_i.add(i+1);
+                            ans2_i.add(j+1);
+                            ans2_i.add(k+1);
+                            ans2.add(ans2_i);
+                            for (int u = 0; u < n; u++) {
+                                if (matrix[k][u] == 1) {
+                                    ArrayList<Integer> ans3_i = new ArrayList<>();
+                                    ans3_i.add(i+1);
+                                    ans3_i.add(j+1);
+                                    ans3_i.add(k+1);
+                                    ans3_i.add(u+1);
+                                    ans3.add(ans3_i);
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
+        ArrayList<ArrayList<ArrayList<Integer>>> ans = new ArrayList<>();
+        ans.add(ans2);
+        ans.add(ans3);
         return ans;
     }
 
@@ -147,3 +167,4 @@ public class CalculateMath {
         return newMatrix;
     }
 }
+
