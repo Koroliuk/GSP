@@ -24,6 +24,7 @@ public class Main extends Application {
     public static int[][] matrixOfNodes;
     public static ArrayList<MyEdge> edges;
     public static int[][] matrixOfTreeOld;
+    public static int[] numeration;
 
     public static void main(String[] args) {
         Application.launch(args);
@@ -154,6 +155,28 @@ public class Main extends Application {
             }
 
             VBox vBox = new VBox();
+            Label label0 = new Label("Одержана нумерація:");
+            label0.setFont(new Font(16));
+            vBox.getChildren().add(label0);
+            StringBuilder line1 = new StringBuilder("    ");
+            for (int j = 0; j < numberOfNodes; j++) {
+                line1.append(j+1).append(" ");
+            }
+            Label labelOfLine1 = new Label(String.valueOf(line1));
+            labelOfLine1.setFont(new Font(15));
+            vBox.getChildren().add(labelOfLine1);
+            StringBuilder line2 = new StringBuilder("    ");
+            for (int j = 0; j < numberOfNodes; j++) {
+                for (int k = 0; k < numberOfNodes; k++) {
+                    if (j == numeration[k]) {
+                        line2.append(k+1).append(" ");
+                    }
+                }
+            }
+            Label labelOfLine2 = new Label(String.valueOf(line2));
+            labelOfLine2.setFont(new Font(15));
+            vBox.getChildren().add(labelOfLine2);
+
             Label label = new Label("Матриця відповідностей вершин:");
             label.setFont(new Font(16));
             vBox.getChildren().add(label);
