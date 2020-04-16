@@ -23,6 +23,7 @@ public class CalculateMath {
         curr.textOfNode.setFill(Color.WHITE);
         int i = curr.numberOfNode-1;
         Main.matrixOfNodes[i][count] = 1;
+        Main.numeration[count] = i;
         count++;
         visited[i] = 1;
         if (pred != -1) {
