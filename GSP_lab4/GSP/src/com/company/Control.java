@@ -6,6 +6,7 @@ public class Control {
         Main.numberOfNodes = Integer.parseInt(numberOfNodes.toString());
         Main.matrixOfNodes = new int[Main.numberOfNodes][Main.numberOfNodes];
         Main.matrixOfTreeOld = new int[Main.numberOfNodes][Main.numberOfNodes];
+        Main.matrixOfEdges = new MyEdge[Main.numberOfNodes][Main.numberOfNodes];
         Main.numeration = new int[Main.numberOfNodes];
     }
 

@@ -19,6 +19,7 @@ public class Main extends Application {
     public static int numberOfNodes;
     public static boolean orientation = true;
     public static int[][] matrix;
+    public static MyEdge[][] matrixOfEdges;
     public static MyNode[] nodeList;
     public static ArrayList<MyNode> queue = new ArrayList<>();
     public static int[][] matrixOfNodes;
@@ -93,6 +94,7 @@ public class Main extends Application {
             nodeList = nodes;
             edges = CalculateGraphic.makeEdge(numberOfNodes, matrix, nodes, orientation);
             for (MyEdge edg : edges) {
+                matrixOfEdges[edg.startNode-1][edg.finishNode-1] = edg;
                 if (edg.edge instanceof ArrowArc) {
                     root.getChildren().add(((ArrowArc) edg.edge).polyline);
                     root.getChildren().add(((ArrowArc) edg.edge).quadCurve);
@@ -154,17 +156,19 @@ public class Main extends Application {
                 root.getChildren().addAll(node.circle, node.textOfNode);
             }
 
-            VBox vBox = new VBox();
+            HBox hBox12 = new HBox();
+            VBox vBox11 = new VBox();
+            VBox vBox22 = new VBox();
             Label label0 = new Label("Одержана нумерація:");
             label0.setFont(new Font(16));
-            vBox.getChildren().add(label0);
+            vBox11.getChildren().add(label0);
             StringBuilder line1 = new StringBuilder("    ");
             for (int j = 0; j < numberOfNodes; j++) {
                 line1.append(j+1).append(" ");
             }
             Label labelOfLine1 = new Label(String.valueOf(line1));
             labelOfLine1.setFont(new Font(15));
-            vBox.getChildren().add(labelOfLine1);
+            vBox11.getChildren().add(labelOfLine1);
             StringBuilder line2 = new StringBuilder("    ");
             for (int j = 0; j < numberOfNodes; j++) {
                 for (int k = 0; k < numberOfNodes; k++) {
@@ -175,11 +179,11 @@ public class Main extends Application {
             }
             Label labelOfLine2 = new Label(String.valueOf(line2));
             labelOfLine2.setFont(new Font(15));
-            vBox.getChildren().add(labelOfLine2);
+            vBox11.getChildren().add(labelOfLine2);
 
-            Label label = new Label("Матриця відповідностей вершин:");
+            Label label = new Label("Матриця відповідностей\nвершин:");
             label.setFont(new Font(16));
-            vBox.getChildren().add(label);
+            vBox11.getChildren().add(label);
             for (int i = 0; i < numberOfNodes; i++) {
                 StringBuilder line = new StringBuilder("    ");
                 for (int j = 0; j < numberOfNodes; j++) {
@@ -187,7 +191,7 @@ public class Main extends Application {
                 }
                 Label labelOfLine = new Label(String.valueOf(line));
                 labelOfLine.setFont(new Font(15));
-                vBox.getChildren().add(labelOfLine);
+                vBox11.getChildren().add(labelOfLine);
             }
 
             ArrayList<MyEdge> edgesListOfTree = CalculateGraphic.makeEdge(numberOfNodes, matrixOfTreeOld, nodeListBFS, true);
@@ -223,10 +227,9 @@ public class Main extends Application {
                     }
                 }
             }
-
-            Label label1 = new Label("Матриця дерева:");
-            label1.setFont(new Font(16));
-            vBox.getChildren().add(label1);
+            Label label2 = new Label("Матриця дерева за старою\nнумерацією");
+            label2.setFont(new Font(16));
+            vBox22.getChildren().add(label2);
             for (int i = 0; i < numberOfNodes; i++) {
                 StringBuilder line = new StringBuilder("    ");
                 for (int j = 0; j < numberOfNodes; j++) {
@@ -234,11 +237,25 @@ public class Main extends Application {
                 }
                 Label labelOfLine = new Label(String.valueOf(line));
                 labelOfLine.setFont(new Font(15));
-                vBox.getChildren().add(labelOfLine);
+                vBox22.getChildren().add(labelOfLine);
             }
-            vBox.setLayoutX(1330);
-            vBox.setLayoutY(380);
-            root.getChildren().add(vBox);
+            Label label1 = new Label("Матриця дерева за новою\nнумерацією");
+            label1.setFont(new Font(16));
+            vBox22.getChildren().add(label1);
+            for (int i = 0; i < numberOfNodes; i++) {
+                StringBuilder line = new StringBuilder("    ");
+                for (int j = 0; j < numberOfNodes; j++) {
+                    line.append(matrixOfTreeNew[i][j]).append(" ");
+                }
+                Label labelOfLine = new Label(String.valueOf(line));
+                labelOfLine.setFont(new Font(15));
+                vBox22.getChildren().add(labelOfLine);
+            }
+            hBox12.getChildren().addAll(vBox11, vBox22);
+            hBox12.setSpacing(10);
+            hBox12.setLayoutX(1330);
+            hBox12.setLayoutY(380);
+            root.getChildren().add(hBox12);
         });
 
         hBox3.getChildren().addAll(startButton, stepButton, finishButton);

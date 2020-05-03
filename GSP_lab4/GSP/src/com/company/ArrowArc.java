@@ -29,7 +29,7 @@ public class ArrowArc extends Path {
         polyline.getPoints().addAll(
                 x1, y1,
                 x2, y2,
-                endX, endY );
+                endX, endY);
         polyline.setFill(Color.BLACK);
         polyline.setStroke(Color.BLACK);
     }

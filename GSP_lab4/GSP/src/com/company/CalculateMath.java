@@ -1,8 +1,12 @@
 package com.company;
 
+
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.QuadCurve;
 
 import java.util.ArrayList;
+
 
 public class CalculateMath {
     public static ArrayList<Integer> queuePred = new ArrayList<>();
@@ -28,6 +32,22 @@ public class CalculateMath {
         visited[i] = 1;
         if (pred != -1) {
             Main.matrixOfTreeOld[pred][i] = 1;
+            MyEdge edg = Main.matrixOfEdges[pred][i];
+            if (edg.edge instanceof ArrowArc){
+                ((ArrowArc) edg.edge).quadCurve.setStroke(Color.PALEVIOLETRED);
+                ((ArrowArc) edg.edge).polyline.setStroke(Color.PALEVIOLETRED);
+                ((ArrowArc) edg.edge).polyline.setFill(Color.PALEVIOLETRED);
+            } else if (edg.edge instanceof QuadCurve) {
+                ((QuadCurve) edg.edge).setStroke(Color.PALEVIOLETRED);
+            } else if (edg.edge instanceof ArrowLine) {
+                ((ArrowLine) edg.edge).line.setStroke(Color.PALEVIOLETRED);
+                ((ArrowLine) edg.edge).polyline.setStroke(Color.PALEVIOLETRED);
+                ((ArrowLine) edg.edge).polyline.setFill(Color.PALEVIOLETRED);
+            } else {
+                if (edg.edge instanceof Line) {
+                    ((Line) edg.edge).setStroke(Color.PALEVIOLETRED);
+                }
+            }
         }
         for (int j = 0; j < Main.numberOfNodes; j++) {
             if (Main.matrix[i][j] > 0 && visited[j] == 0) {
