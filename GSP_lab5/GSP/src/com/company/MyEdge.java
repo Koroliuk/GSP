@@ -48,22 +48,8 @@ public class MyEdge extends Node {
             startY = ((ArrowLine) edge).line.getStartY();
             endX = ((ArrowLine) edge).line.getEndX();
             endY = ((ArrowLine) edge).line.getEndY();
-            textX = (startX+endX)/2d+5;
-            textY = (startY+endY)/2d-10;
-            if (textX > 700) {
-                if (weight > 9) {
-                    textX+=5;
-                }
-            }
-            if (textX < 700) {
-                textX-=10;
-                if (weight > 9) {
-                    textX-=5;
-                }
-            }
-            if (startX-endX < 10) {
-                textX-=5;
-            }
+            textX = (startX+endX)/2d;
+            textY = (startY+endY)/2d;
         } else if (edge instanceof QuadCurve){
             double startX, startY, endX, endY, controlX, controlY;
             startX = ((QuadCurve) edge).getStartX();
@@ -91,17 +77,7 @@ public class MyEdge extends Node {
                 endX = ((Line) edge).getEndX();
                 endY = ((Line) edge).getEndY();
                 textX = (startX+endX)/2d;
-                textY = (startY+endY)/2d; //-5d
-                if ((startX-endX)*(startY-endY) < 0) {
-                    textX-=20;
-                    textY-=5;
-                }
-                if ((startX-endX)*(startY-endY) > 0) {
-                    textX+=10;
-                }
-                if (startX-endX < 10) {
-                    textX-=5;
-                }
+                textY = (startY+endY)/2d;
             }
         }
         textOfWeight = new Text(textX, textY, String.valueOf(weight));
