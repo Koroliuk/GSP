@@ -1,2 +1,2 @@
 # GSP
-Graphs Show Program
+Graphs Show Program that use JavaFX
